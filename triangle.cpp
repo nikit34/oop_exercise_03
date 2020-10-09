@@ -27,7 +27,7 @@ double Triangle::Area() const {
 }
 
 std::ostream& Triangle::Print(std::ostream& out) const {
-	out << "Triangle: A " << A << ", B " << B << ", C " << C;
+	out << "Triangle: A " << A << ", B " << B << ", C " << C << std::endl;
 	return out;
 }
 

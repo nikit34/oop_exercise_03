@@ -7,16 +7,16 @@
 
 
 void print_help() {
-    std::cout << "'add square'            --> Create square" << std::endl;
-    std::cout << "'add triangle'          --> Create triangle" << std::endl;
-    std::cout << "'add octagon'           --> Create octagon" << std::endl;
-    std::cout << "'show <ID>'             --> Output figure" << std::endl;
-    std::cout << "'print total'           --> Output total area" << std::endl;
-    std::cout << "'print area'            --> Output area" << std::endl;
-    std::cout << "'print center'          --> Output center" << std::endl;
-    std::cout << "'delete <ID>'           --> Delete figure" << std::endl;
-    std::cout << "'help'                  --> Get help" << std::endl;
-    std::cout << "'exit'                  --> Exit" << std::endl;
+    std::cout << "1.  'add square'            --> Create square" << std::endl;
+    std::cout << "2.  'add triangle'          --> Create triangle" << std::endl;
+    std::cout << "3.  'add octagon'           --> Create octagon" << std::endl;
+    std::cout << "4.  'show <ID>'             --> Output figure" << std::endl;
+    std::cout << "5.  'print total'           --> Output total area" << std::endl;
+    std::cout << "6.  'print area'            --> Output area" << std::endl;
+    std::cout << "7.  'print center'          --> Output center" << std::endl;
+    std::cout << "8.  'delete <ID>'           --> Delete figure" << std::endl;
+    std::cout << "9.  'help'                  --> Get help" << std::endl;
+    std::cout << "10. 'exit'                  --> Exit" << std::endl;
 }                                           
 
 void print_errors(int&& err) {
@@ -49,25 +49,30 @@ int main() {
 
     char com1[40];
     char com2[40];
+    int num_com;
 
     Figure* fig = nullptr;
 
     while (true) {
         std::cin >> com1;
+        num_com = atoi(com1);
 
-        if (strcmp(com1, "add") == 0) {
-            std::cin >> com2;
+        if ((1 <= num_com && num_com <= 3) || strcmp(com1, "add") == 0) {
+            if (1 <= num_com && num_com <= 3)
+                com2[0] = '\0';
+            else
+                std::cin >> com2;
 
-            if (strcmp(com2, "square") == 0) {
-                std::cout << "input A >> B >> C >> D";
+            if (num_com == 1 || strcmp(com2, "square") == 0) {
+                std::cout << "input <A.x> <A.y> >> <B.x> <B.y> >> <C.x> <C.y> >> <D.x> <D.y>\t";
                 fig = new Square;
             }
-            else if (strcmp(com2, "triangle") == 0) {
-                std::cout << "input A >> B >> C";
+            else if (num_com == 2 || strcmp(com2, "triangle") == 0) {
+                std::cout << "input <A.x> <A.y> >> <B.x> <B.y> >> <C.x> <C.y>\t";
                 fig = new Triangle;
             }
-            else if (strcmp(com2, "octagon") == 0) {
-                std::cout << "input A >> B >> C >> D >> E >> F >> G >> H";
+            else if (num_com == 3 || strcmp(com2, "octagon") == 0) {
+                std::cout << "input <A.x> <A.y> >> <B.x> <B.y> >> <C.x> <C.y> >> <D.x> <D.y> >> <E.x> <E.y> >> <F.x> <F.y> >> <G.x> <G.y> >> <H.x> <H.y>\t";
                 fig = new Octagon;
             }
             else {
@@ -76,7 +81,7 @@ int main() {
             fig->Scan(std::cin);
             figs.push_back(fig);
         }
-        else if (strcmp(com1, "show") == 0) {
+        else if (num_com == 4 || strcmp(com1, "show") == 0) {
             int id;
             std::cin >> id;
             if (id >= figs.size()) {
@@ -85,22 +90,25 @@ int main() {
             }
             figs[id]->Print(std::cout);
         }
-        else if (strcmp(com1, "print") == 0) {
-            std::cin >> com2;
-            if (strcmp(com2, "total") == 0) {
+        else if ((5 <= num_com && num_com <= 7) || strcmp(com1, "print") == 0) {
+            if (5 <= num_com && num_com <= 7)
+                com2[0] = '\0';
+            else
+                std::cin >> com2;
+            if (num_com == 5 || strcmp(com2, "total") == 0) {
                 double total_area = 0;
                 for (Figure* fig : figs) {
                     total_area += fig->Area();
                 }
                 std::cout << "Total area: " << total_area << std::endl;
             }
-            else if (strcmp(com2, "area") == 0) {
+            else if (num_com == 6 || strcmp(com2, "area") == 0) {
                 std::cout << "Display area: ";
                 for (Figure* fig : figs) {
                     std::cout << fig->Area() << std::endl;
                 }
             }
-            else if (strcmp(com2, "center") == 0) {
+            else if (num_com == 7 || strcmp(com2, "center") == 0) {
                 std::cout << "Display center: ";
                 for (Figure* fig : figs) {
                     Point tmp = fig->Center();
@@ -111,7 +119,7 @@ int main() {
                 std::cout << "Incorrect command\n";
             }
         }
-        else if (strcmp(com1, "delete") == 0) {
+        else if (num_com == 8 || strcmp(com1, "delete") == 0) {
             int id;
             std::cin >> id;
             if (id >= figs.size()) {
@@ -121,20 +129,19 @@ int main() {
             delete figs[id];
             figs.erase(figs.begin() + id);
         }
-        else if (strcmp(com1, "help") == 0) {
+        else if (num_com == 9 || strcmp(com1, "help") == 0) {
             print_help();
             continue;
         }
-        else if (strcmp(com1, "exit") == 0) {
+        else if (num_com == 10 || strcmp(com1, "exit") == 0) {
             break;
         }
         else {
             print_errors(1);
         }
+        std::cout << "\tdone" << std::endl;
     }
 
-    delete[] com1;
-    delete[] com2;
     delete fig;
     
     for (int i = 0; i < figs.size(); ++i) {

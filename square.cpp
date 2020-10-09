@@ -40,7 +40,7 @@ double Square::Area() const {
 }
 
 std::ostream& Square::Print(std::ostream& out) const {
-	out << "Square: A " << A << ", B " << B << ", C " << C << ", D " << D;
+	out << "Square: A " << A << ", B " << B << ", C " << C << ", D " << D << std::endl;
 	return out;
 }
 

@@ -22,7 +22,7 @@ double Octagon::Area() const {
 }
 
 std::ostream& Octagon::Print(std::ostream& out) const {
-    out << "Octagon: A " << A << ", B " << B << ", C " << C << ", D " << D << ", E " << E << ", F " << F << ", G " << G << ", H " << H;
+    out << "Octagon: A " << A << ", B " << B << ", C " << C << ", D " << D << ", E " << E << ", F " << F << ", G " << G << ", H " << H << std::endl;
     return out;
 }
 
